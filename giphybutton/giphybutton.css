@@ -34,3 +34,62 @@
   position:relative;
   top:1px;
 }
+
+#hintergrund {
+  display:none;
+  z-index:1;
+  position: fixed;
+  height:100%;
+  width:100%;
+  top:0px;
+  left:0px;
+  background:#000000;
+}
+ 
+#popup {
+  display: none;
+  z-index: 2;
+  position: fixed;
+  width:450px;
+  top: 20%;
+  left: 50%;
+  margin-left: -250px;
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 8px solid #ccc;
+  border-radius: 5px 5px 5px 5px;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 14px;
+  color: #000;
+}
+ 
+div.schliessen {
+  position: relative;
+  height: 30px;
+  width: 30px;
+  left: 27px;
+  bottom: 24px;
+  background: url("close.png") no-repeat scroll 0 0 transparent;
+  float: right;
+  cursor: pointer;
+}
+ 
+#popup_inhalt {
+    margin: 8px 14px;
+}
+
+input
+{
+  width: 100%;
+  padding: 5px;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;  
+}
+
+ul
+{
+  list-style-type: none;
+}

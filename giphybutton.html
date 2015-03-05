@@ -9,19 +9,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     
   </head>
-  <body>
-    <div id="gipyhButton" class="giphyButton">Giphy</div>
+  <body style="padding: 50px;">
+    <button id="gipyhButton" class="giphyButton">Giphy</button>
 
     <div id="myModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Pick GIF</h4>
+                    <h4 class="modal-title">Pick a gif from giphy.com</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Pick a gif from giphy.com</p>
-                    <p id="giphyUrls" />
+                    <p>Add search terms separated by spaces.</p>
+                    <label for="giphySearch">Search:</label>
+                    <input type="text" id="giphySearch" name="search"></td>
+                    </p>
+                    <div id="giphyUrls" />
                     
                 </div>
                 <div class="modal-footer">
