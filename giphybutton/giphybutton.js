@@ -51,11 +51,9 @@ $(document).ready(function(){
       var url = entry.images.fixed_width.url;
       
       if(typeof url !== 'undefined'){
-        var imageTag = '<img src="' + url + '" alt="gif" />';
+        images.push(url);
       };
       
-      images.push(imageTag);
-
     });
     var list = addList(id, images);
   }
@@ -63,11 +61,26 @@ $(document).ready(function(){
   function addList(id, listData){
           
     var listContainer = $(id);
-    var listDiv = listContainer.append("<div>");
-    var list = listDiv.append("<ul>");
+    var listDiv = $("<div>").appendTo(listContainer);
+    var list = $("<ul>").appendTo(listDiv);
 
     for (i = 0; i < number_of_entries; i++) { 
-      list.append("<li>" + listData[i] + "</li>")
+      var listItem = $("<li>").appendTo(list);
+      var imageTag = '<img src="' + listData[i] + '" alt="gif" data-dismiss="modal"/>';
+      var image = $(imageTag).appendTo(listItem);
+      image.click(function(event) {
+        postImageLink(event);
+      });
     }
-
   }
+
+  function postImageLink(event) {
+    if(typeof event.target.src !== 'undefined'){
+      $("#gifUrlPost").val(event.target.src);
+    };
+  }
+
+
+
+
+
