@@ -4,29 +4,19 @@
     <meta charset="UTF-8">
     <title>Giphy Button Test</title>
     <link rel="stylesheet" type="text/css" href="giphybutton/giphybutton.css">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    
   </head>
   <body style="padding: 50px;">
     <button id="giphyButton" class="giphyButton">Giphy</button>
     <input type="text" id="gifUrlPost"></input>
     <div id="giphyModal"></div>
-
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    
     <script type="text/javascript" src="giphybutton/giphybutton.js"></script>
     <script type="text/javascript">
-
       $(document).ready(function(){
         var gipyhButton = new GiphyButton("giphyButton", "gifUrlPost", "giphyModal");
       });
-      
     </script>
   </body>
 </html>

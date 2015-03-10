@@ -5,10 +5,10 @@ var GiphyButton = (function () {
   var giphyTextInputButton = "giphyTextInput";
   var giphyDialogId = "giphyDialog";
   var jqxhr;
-  number_of_entries = 5;
+  var searchResultsCount = 6;
 
   // constructor
-  var GiphyButton = function (buttonId, textInputId, dialogId) {
+  var GiphyButton = function (buttonId, textInputId, dialogId, numberOfSearchResults) {
         
     if(typeof buttonId !== 'undefined'){
       giphyButtonId = "#" + buttonId;
@@ -22,7 +22,9 @@ var GiphyButton = (function () {
       giphyDialogId = "#" + dialogId;
     }
 
-    createModalDialog();
+    if(typeof numberOfSearchResults !== 'undefined'){
+      searchResultsCount = numberOfSearchResults;
+    }
 
     if(typeof $(giphyButtonId) === 'undefined'){
         console.log("No button is defined under id " + giphyButtonId);
@@ -35,6 +37,8 @@ var GiphyButton = (function () {
     if(typeof $(giphyDialogId) === 'undefined'){
         console.log("No dialog div is defined under id " + giphyDialogId);
     }
+
+    createModalDialog();
 
     $("#giphySearch").keyup(function() {
       loadGifs(this.value);
@@ -142,7 +146,7 @@ var GiphyButton = (function () {
     var listDiv = $("<div class=\"giphyList\">").appendTo(listContainer);
     var list = $("<ul>").appendTo(listDiv);
 
-    for (i = 0; i < number_of_entries; i++) { 
+    for (i = 0; i < searchResultsCount; i++) { 
       var listItem = $("<li>").appendTo(list);
       var imageTag = '<img src="' + listData[i] + '" alt="gif" data-dismiss="modal"/>';
       var image = $(imageTag).appendTo(listItem);
