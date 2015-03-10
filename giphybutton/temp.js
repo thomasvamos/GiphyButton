@@ -139,7 +139,7 @@ var GiphyButton = (function () {
   function addList(id, listData){
           
     var listContainer = $(id);
-    var listDiv = $("<div class=\"giphyList\">").appendTo(listContainer);
+    var listDiv = $("<div>").appendTo(listContainer);
     var list = $("<ul>").appendTo(listDiv);
 
     for (i = 0; i < number_of_entries; i++) { 

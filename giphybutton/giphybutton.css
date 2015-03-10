@@ -89,7 +89,19 @@ input
   box-sizing: border-box;  
 }
 
-ul
-{
-  list-style-type: none;
+.giphyList {
+}
+
+.giphyList ul { /* also works with ol */
+    margin: 0;
+    padding: 0;
+    width: 100%; /* or your desired width */
+    text-align: center; /* this will center the list items */
+}
+
+.giphyList li {
+    display: inline-block; /* the key bit */
+    *display: inline; /* IE7 hack */
+    *zoom: 1; /* IE7 hack */
+    margin:5px;
 }
