@@ -1,3 +1,5 @@
+
+
 var GiphyButton = (function () {
     
   // private variables and functions
@@ -158,7 +160,7 @@ var GiphyButton = (function () {
 
   function postImageLink(event) {
     if(typeof event.target.src !== 'undefined'){
-      $("#gifUrlPost").val(event.target.src);
+      $(giphyTextInputButton).val(event.target.src);
     };
   }
 
