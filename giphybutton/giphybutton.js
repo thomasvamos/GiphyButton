@@ -4,7 +4,7 @@ var GiphyButton = (function () {
     
   // private variables and functions
   var giphyButtonId = "giphyButton";
-  var giphyTextInputButton = "giphyTextInput";
+  var giphyTextInput = "giphyTextInput";
   var giphyDialogId = "giphyDialog";
   var jqxhr;
   var searchResultsCount = 6;
@@ -17,7 +17,7 @@ var GiphyButton = (function () {
     }
         
     if(typeof textInputId !== 'undefined'){
-      giphyTextInputButton = "#" + textInputId;
+      giphyTextInput = "#" + textInputId;
     }
 
     if(typeof dialogId !== 'undefined'){
@@ -32,8 +32,8 @@ var GiphyButton = (function () {
         console.log("No button is defined under id " + giphyButtonId);
     }
 
-    if(typeof $(giphyTextInputButton) === 'undefined'){
-        console.log("No input field is defined under id " + giphyTextInputButton);
+    if(typeof $(giphyTextInput) === 'undefined'){
+        console.log("No input field is defined under id " + giphyTextInput);
     }
 
     if(typeof $(giphyDialogId) === 'undefined'){
@@ -42,12 +42,29 @@ var GiphyButton = (function () {
 
     createModalDialog();
 
-    $("#giphySearch").keyup(function() {
+    // register event listeners
+
+    $("#giphyModalInput").keyup(function() {
       loadGifs(this.value);
     });
 
     $(giphyButtonId).click(function(){
+      $( "#giphyUrls" ).empty();
       $(giphyDialogId).modal('show');
+    });
+
+    // required to make text input focus work in google chrome.
+    $(giphyButtonId).mouseup(function(e){
+      e.preventDefault();
+    });
+
+    $(giphyDialogId).on('shown.bs.modal', function() {
+        var input = $(giphyDialogId + " > #giphyModalDialog" +
+                        " > #giphyModalContent" +
+                        " > #giphyModalBody" + 
+                        " > #giphyModalInput");
+        input.val("");
+        input.focus();
     });
   
   };
@@ -59,10 +76,12 @@ var GiphyButton = (function () {
     
     // add dialog div
     var modalDialogDiv = $("<div>").appendTo(modalFadeDiv);
+    modalDialogDiv.attr('id', 'giphyModalDialog');
     modalDialogDiv.addClass("modal-dialog");
 
     // add content div
     var contentDiv = $("<div>").appendTo(modalDialogDiv);
+    contentDiv.attr('id', 'giphyModalContent');
     contentDiv.addClass("modal-content");
 
     // add header div
@@ -81,14 +100,16 @@ var GiphyButton = (function () {
     // add body div
     var bodyDiv = $("<div>").appendTo(contentDiv);
     bodyDiv.addClass("modal-body");
+    bodyDiv.attr('id', 'giphyModalBody');
 
     $("<p>Add search terms separated by spaces.</p>").appendTo(bodyDiv);
-    $("<label for=\"giphySearch\">Search:</label>").appendTo(bodyDiv);
+    $("<label for=\"giphyModalInput\">Search:</label>").appendTo(bodyDiv);
     
     var searchInput = $("<input>").appendTo(bodyDiv);
     searchInput.attr('type','text').
-    attr('id','giphySearch').
-    attr('name','search');
+    attr('id','giphyModalInput').
+    attr('name','search').
+    attr('autofocus','');
     
     var giphyUrlsDiv = $("<div>").appendTo(bodyDiv);
     giphyUrlsDiv.attr('id','giphyUrls');
@@ -160,7 +181,15 @@ var GiphyButton = (function () {
 
   function postImageLink(event) {
     if(typeof event.target.src !== 'undefined'){
-      $(giphyTextInputButton).val(event.target.src);
+
+      var currentValue = $(giphyTextInput).val();
+
+      if(currentValue.length > 0) {
+        currentValue = currentValue + " ";
+      }
+
+      $(giphyTextInput).val(currentValue + event.target.src);
+
     };
   }
 
