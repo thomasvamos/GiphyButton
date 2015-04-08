@@ -7,7 +7,7 @@ var GiphyButton = (function () {
   var giphyTextInput = "giphyTextInput";
   var giphyDialogId = "giphyDialog";
   var jqxhr;
-  var searchResultsCount = 6;
+  var searchResultsUpperBound = 6;
 
   // constructor
   var GiphyButton = function (buttonId, textInputId, dialogId, numberOfSearchResults) {
@@ -25,7 +25,7 @@ var GiphyButton = (function () {
     }
 
     if(typeof numberOfSearchResults !== 'undefined'){
-      searchResultsCount = numberOfSearchResults;
+      searchResultsUpperBound = numberOfSearchResults;
     }
 
     if(typeof $(giphyButtonId) === 'undefined'){
@@ -149,6 +149,11 @@ var GiphyButton = (function () {
   }
 
   function appendGifUrls(id, data) {
+
+    if(data.length == 0) {
+      addNoItemsFoundMessage(id);
+      return;
+    }
     
     var images = new Array();
     data.forEach(function(entry) {
@@ -160,6 +165,7 @@ var GiphyButton = (function () {
       };
       
     });
+
     var list = addList(id, images);
   }
 
@@ -168,8 +174,9 @@ var GiphyButton = (function () {
     var listContainer = $(id);
     var listDiv = $("<div class=\"giphyList\">").appendTo(listContainer);
     var list = $("<ul>").appendTo(listDiv);
+    var searchResults = listData.length < searchResultsUpperBound ? listData.length : searchResultsUpperBound;
 
-    for (i = 0; i < searchResultsCount; i++) { 
+    for (i = 0; i < searchResults; i++) { 
       var listItem = $("<li>").appendTo(list);
       var imageTag = '<img src="' + listData[i] + '" alt="gif" data-dismiss="modal"/>';
       var image = $(imageTag).appendTo(listItem);
@@ -177,6 +184,11 @@ var GiphyButton = (function () {
         postImageLink(event);
       });
     }
+  }
+
+  function addNoItemsFoundMessage(id) {
+    var listContainer = $(id);
+    var listDiv = $("<p class=\"text-center\">No items found. Try another search phrase.</p>").appendTo(listContainer);
   }
 
   function postImageLink(event) {
