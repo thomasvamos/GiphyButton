@@ -8,6 +8,7 @@ var GiphyButton = (function () {
   var giphyDialogId = "giphyDialog";
   var jqxhr;
   var searchResultsUpperBound = 6;
+  var imageLinkMap = {};
 
   // constructor
   var GiphyButton = function (buttonId, textInputId, dialogId, numberOfSearchResults) {
@@ -58,6 +59,7 @@ var GiphyButton = (function () {
       e.preventDefault();
     });
 
+    // set focus to dialog
     $(giphyDialogId).on('shown.bs.modal', function() {
         var input = $(giphyDialogId + " > #giphyModalDialog" +
                         " > #giphyModalContent" +
@@ -150,20 +152,21 @@ var GiphyButton = (function () {
 
   function appendGifUrls(id, data) {
 
+    // reset image link map
+    imageLinkMap = {};
+
     if(data.length == 0) {
       addNoItemsFoundMessage(id);
       return;
     }
-    
-    var images = new Array();
-    data.forEach(function(entry) {
 
-      var url = entry.images.fixed_width.url;
-      
-      if(typeof url !== 'undefined'){
-        images.push(url);
+    var images = new Array();    
+    data.forEach(function(entry) {
+      if( typeof entry.images.fixed_width.url !== 'undefined' && 
+          typeof entry.images.original.url !== 'undefined' ){
+        imageLinkMap[entry.images.fixed_width.url] = entry.images.original.url;
+        images.push(entry.images.fixed_width.url);
       };
-      
     });
 
     var list = addList(id, images);
@@ -200,7 +203,12 @@ var GiphyButton = (function () {
         currentValue = currentValue + " ";
       }
 
-      $(giphyTextInput).val(currentValue + event.target.src);
+      // get original size gif url
+      var gifUrl = imageLinkMap[event.target.src];
+
+      if(typeof gifUrl !== 'undefined') {
+        $(giphyTextInput).val(currentValue + gifUrl);  
+      }
 
     };
   }
