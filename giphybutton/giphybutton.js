@@ -272,7 +272,9 @@ var GiphyButton = (function () {
       var gifUrl = imageLinkMap[event.target.src];
 
       if(typeof gifUrl !== 'undefined') {
-        $(giphyTextInput).val(currentValue + gifUrl);  
+        $('#giphyPagingButtonBack').hide();
+        $('#giphyPagingButtonForward').hide();
+        $(giphyTextInput).val(currentValue + gifUrl);
       }
 
     };
